@@ -66,6 +66,15 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
+enum LANGUAGE {
+    ENGLISH
+    INDONESIAN
+    SPANISH
+    FRENCH
+    GERMAN
+    JAPANESE
+}
+
 model Profile {
     id         String   @id @default(cuid())
     userId     String
@@ -73,7 +82,7 @@ model Profile {
     email      String?
     pin        Int?
     icon       Icon     @relation(fields: [iconId], references: [id], onDelete: Cascade)
-    language   String   @default("ENGLISH")
+    language   LANGUAGE @default(ENGLISH)
     gameHandle String?
     user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     createdAt  DateTime @default(now())
@@ -84,6 +93,7 @@ model Profile {
     @@index([userId])
     @@index([iconId])
 }
+
 
 model Icon {
     id        String    @id @default(cuid())
